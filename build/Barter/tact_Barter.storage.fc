@@ -1,0 +1,353 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+((cell, cell)) $StateInit$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (cell vvv'code, cell vvv'data) = __tact_tuple_destroy_2(v);
+    return (vvv'code, vvv'data);
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline {
+    return (bounce, to, value, mode, body, code, data);
+}
+
+;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int queryId) inline {
+    return (queryId);
+}
+
+;;
+;; Type: SendBottle
+;; TLB: _ masterAddress:address name:^string senderAddress:address total:uint32 = SendBottle
+;;
+
+builder $SendBottle$_store(builder build_0, (slice, slice, slice, int) v) inline {
+    var (v'masterAddress, v'name, v'senderAddress, v'total) = v;
+    build_0 = __tact_store_address(build_0, v'masterAddress);
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'name).end_cell());
+    build_0 = __tact_store_address(build_0, v'senderAddress);
+    build_0 = build_0.store_uint(v'total, 32);
+    return build_0;
+}
+
+cell $SendBottle$_store_cell((slice, slice, slice, int) v) inline {
+    return $SendBottle$_store(begin_cell(), v).end_cell();
+}
+
+((slice, slice, slice, int)) $SendBottle$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (slice vvv'masterAddress, slice vvv'name, slice vvv'senderAddress, int vvv'total) = __tact_tuple_destroy_4(v);
+    return (vvv'masterAddress, vvv'name, vvv'senderAddress, vvv'total);
+}
+
+cell $SendBottle$_store_opt(tuple v) inline {
+    if (null?(v)) {
+        return null();
+    }
+    return $SendBottle$_store_cell($SendBottle$_not_null(v));
+}
+
+(slice, ((slice, slice, slice, int))) $SendBottle$_load(slice sc_0) inline {
+    var v'masterAddress = sc_0~__tact_load_address();
+    var v'name = sc_0~load_ref().begin_parse();
+    var v'senderAddress = sc_0~__tact_load_address();
+    var v'total = sc_0~load_uint(32);
+    return (sc_0, (v'masterAddress, v'name, v'senderAddress, v'total));
+}
+
+tuple $SendBottle$_as_optional((slice, slice, slice, int) v) inline {
+    var (v'masterAddress, v'name, v'senderAddress, v'total) = v;
+    return __tact_tuple_create_4(v'masterAddress, v'name, v'senderAddress, v'total);
+}
+
+tuple $SendBottle$_load_opt(cell cl) inline {
+    if (null?(cl)) {
+        return null();
+    }
+    var sc = cl.begin_parse();
+    return $SendBottle$_as_optional(sc~$SendBottle$_load());
+}
+
+((slice, slice, slice, int)) $SendBottle$_constructor_name_masterAddress_senderAddress_total(slice name, slice masterAddress, slice senderAddress, int total) inline {
+    return (masterAddress, name, senderAddress, total);
+}
+
+;;
+;; Type: ArgSendBottle
+;; Header: 0xc8e63058
+;; TLB: arg_send_bottle#c8e63058 masterAddress:address senderAddress:address name:^string total:uint32 = ArgSendBottle
+;;
+
+(slice, ((slice, slice, slice, int))) $ArgSendBottle$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3370528856);
+    var v'masterAddress = sc_0~__tact_load_address();
+    var v'senderAddress = sc_0~__tact_load_address();
+    var v'name = sc_0~load_ref().begin_parse();
+    var v'total = sc_0~load_uint(32);
+    return (sc_0, (v'masterAddress, v'senderAddress, v'name, v'total));
+}
+
+;;
+;; Type: ArgVerifyBottle
+;; Header: 0xb0b2a4c5
+;; TLB: arg_verify_bottle#b0b2a4c5 address:address masterAddress:address amount:int257 = ArgVerifyBottle
+;;
+
+(slice, ((slice, slice, int))) $ArgVerifyBottle$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2964497605);
+    var v'address = sc_0~__tact_load_address();
+    var v'masterAddress = sc_0~__tact_load_address();
+    var v'amount = sc_0~load_int(257);
+    return (sc_0, (v'address, v'masterAddress, v'amount));
+}
+
+;;
+;; Type: BagItem
+;; TLB: _ id:uint256 level:uint256 name:^string image_url:^string max:uint256 price:uint256 = BagItem
+;;
+
+builder $BagItem$_store(builder build_0, (int, int, slice, slice, int, int) v) inline_ref {
+    var (v'id, v'level, v'name, v'image_url, v'max, v'price) = v;
+    build_0 = build_0.store_uint(v'id, 256);
+    build_0 = build_0.store_uint(v'level, 256);
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'name).end_cell());
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'image_url).end_cell());
+    build_0 = build_0.store_uint(v'max, 256);
+    var build_1 = begin_cell();
+    build_1 = build_1.store_uint(v'price, 256);
+    build_0 = store_ref(build_0, build_1.end_cell());
+    return build_0;
+}
+
+cell $BagItem$_store_cell((int, int, slice, slice, int, int) v) inline {
+    return $BagItem$_store(begin_cell(), v).end_cell();
+}
+
+((int, int, slice, slice, int, int)) $BagItem$_constructor_id_level_name_image_url_max_price(int id, int level, slice name, slice image_url, int max, int price) inline {
+    return (id, level, name, image_url, max, price);
+}
+
+;;
+;; Type: ArgBagItem
+;; Header: 0x5fc3db80
+;; TLB: arg_bag_item#5fc3db80 id:uint256 level:uint256 name:^string image_url:^string max:uint256 price:uint256 = ArgBagItem
+;;
+
+(slice, ((int, int, slice, slice, int, int))) $ArgBagItem$_load(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 1606671232);
+    var v'id = sc_0~load_uint(256);
+    var v'level = sc_0~load_uint(256);
+    var v'name = sc_0~load_ref().begin_parse();
+    var v'image_url = sc_0~load_ref().begin_parse();
+    var v'max = sc_0~load_uint(256);
+    slice sc_1 = sc_0~load_ref().begin_parse();
+    var v'price = sc_1~load_uint(256);
+    return (sc_0, (v'id, v'level, v'name, v'image_url, v'max, v'price));
+}
+
+;;
+;; Type: Master
+;; TLB: _ name:^string camp:^string phone:uint256 status:bool = Master
+;;
+
+builder $Master$_store(builder build_0, (slice, slice, int, int) v) inline {
+    var (v'name, v'camp, v'phone, v'status) = v;
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'name).end_cell());
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'camp).end_cell());
+    build_0 = build_0.store_uint(v'phone, 256);
+    build_0 = build_0.store_int(v'status, 1);
+    return build_0;
+}
+
+cell $Master$_store_cell((slice, slice, int, int) v) inline {
+    return $Master$_store(begin_cell(), v).end_cell();
+}
+
+(slice, ((slice, slice, int, int))) $Master$_load(slice sc_0) inline {
+    var v'name = sc_0~load_ref().begin_parse();
+    var v'camp = sc_0~load_ref().begin_parse();
+    var v'phone = sc_0~load_uint(256);
+    var v'status = sc_0~load_int(1);
+    return (sc_0, (v'name, v'camp, v'phone, v'status));
+}
+
+tuple $Master$_as_optional((slice, slice, int, int) v) inline {
+    var (v'name, v'camp, v'phone, v'status) = v;
+    return __tact_tuple_create_4(v'name, v'camp, v'phone, v'status);
+}
+
+tuple $Master$_load_opt(cell cl) inline {
+    if (null?(cl)) {
+        return null();
+    }
+    var sc = cl.begin_parse();
+    return $Master$_as_optional(sc~$Master$_load());
+}
+
+((slice, slice, int, int)) $Master$_constructor_name_camp_phone_status(slice name, slice camp, int phone, int status) inline {
+    return (name, camp, phone, status);
+}
+
+;;
+;; Type: ArgAddMaster
+;; Header: 0x0077c9f7
+;; TLB: arg_add_master#0077c9f7 master:address name:^string camp:^string phone:uint256 status:bool = ArgAddMaster
+;;
+
+(slice, ((slice, slice, slice, int, int))) $ArgAddMaster$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 7850487);
+    var v'master = sc_0~__tact_load_address();
+    var v'name = sc_0~load_ref().begin_parse();
+    var v'camp = sc_0~load_ref().begin_parse();
+    var v'phone = sc_0~load_uint(256);
+    var v'status = sc_0~load_int(1);
+    return (sc_0, (v'master, v'name, v'camp, v'phone, v'status));
+}
+
+;;
+;; Type: Bags
+;; TLB: _ bags:^string = Bags
+;;
+
+builder $Bags$_store(builder build_0, (slice) v) inline {
+    var (v'bags) = v;
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'bags).end_cell());
+    return build_0;
+}
+
+cell $Bags$_store_cell((slice) v) inline {
+    return $Bags$_store(begin_cell(), v).end_cell();
+}
+
+(slice, ((slice))) $Bags$_load(slice sc_0) inline {
+    var v'bags = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'bags));
+}
+
+tuple $Bags$_as_optional((slice) v) inline {
+    var (v'bags) = v;
+    return __tact_tuple_create_1(v'bags);
+}
+
+tuple $Bags$_load_opt(cell cl) inline {
+    if (null?(cl)) {
+        return null();
+    }
+    var sc = cl.begin_parse();
+    return $Bags$_as_optional(sc~$Bags$_load());
+}
+
+((slice)) $Bags$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (slice vvv'bags) = __tact_tuple_destroy_1(v);
+    return (vvv'bags);
+}
+
+(slice) $Bags$_to_external(((slice)) v) inline {
+    var (v'bags) = v; 
+    return (v'bags);
+}
+
+((slice)) $Bags$_constructor_bags(slice bags) inline {
+    return (bags);
+}
+
+;;
+;; Type: ArgAddUserBag
+;; Header: 0x352a5bb4
+;; TLB: arg_add_user_bag#352a5bb4 address:address bags:^string = ArgAddUserBag
+;;
+
+(slice, ((slice, slice))) $ArgAddUserBag$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 891968436);
+    var v'address = sc_0~__tact_load_address();
+    var v'bags = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'address, v'bags));
+}
+
+;;
+;; Type: Barter
+;;
+
+builder $Barter$_store(builder build_0, (cell, cell, cell, cell, cell, cell) v) inline {
+    var (v'master, v'masterBottle, v'sendBottles, v'bankBottles, v'bagProducts, v'userBags) = v;
+    build_0 = build_0.store_dict(v'master);
+    build_0 = build_0.store_dict(v'masterBottle);
+    var build_1 = begin_cell();
+    build_1 = build_1.store_dict(v'sendBottles);
+    build_1 = build_1.store_dict(v'bankBottles);
+    build_1 = build_1.store_dict(v'bagProducts);
+    var build_2 = begin_cell();
+    build_2 = build_2.store_dict(v'userBags);
+    build_1 = store_ref(build_1, build_2.end_cell());
+    build_0 = store_ref(build_0, build_1.end_cell());
+    return build_0;
+}
+
+(slice, ((cell, cell, cell, cell, cell, cell))) $Barter$_load(slice sc_0) inline {
+    var v'master = sc_0~load_dict();
+    var v'masterBottle = sc_0~load_dict();
+    slice sc_1 = sc_0~load_ref().begin_parse();
+    var v'sendBottles = sc_1~load_dict();
+    var v'bankBottles = sc_1~load_dict();
+    var v'bagProducts = sc_1~load_dict();
+    slice sc_2 = sc_1~load_ref().begin_parse();
+    var v'userBags = sc_2~load_dict();
+    return (sc_0, (v'master, v'masterBottle, v'sendBottles, v'bankBottles, v'bagProducts, v'userBags));
+}
+
+(cell, cell, cell, cell, cell, cell) $Barter$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$Barter$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        return $Barter$_contract_init();
+    }
+}
+
+() $Barter$_contract_store((cell, cell, cell, cell, cell, cell) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $Barter$_store(b, v);
+    set_data(b.end_cell());
+}

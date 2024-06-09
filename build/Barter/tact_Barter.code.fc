@@ -1,0 +1,274 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_Barter.headers.fc";
+#include "tact_Barter.stdlib.fc";
+#include "tact_Barter.constants.fc";
+#include "tact_Barter.storage.fc";
+
+;;
+;; Contract Barter functions
+;;
+
+(cell, cell, cell, cell, cell, cell) $Barter$_contract_init() impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = (null(), null(), null(), null(), null(), null());
+    $self'master~__tact_dict_set_slice_cell(267, __gen_slice_address_33ee58da0ec9a4a4212a599d46a529be7f9043e8affc125d625ecc4acf35cd70(), $Master$_store_cell($Master$_constructor_name_camp_phone_status(__gen_slice_string_959974006ca3c114c69d736e9162cc7866e241890b74b21ec5c55034e549f736(), __gen_slice_string_65861e3a0a7c3efc332f87ee8de963776c3e2c113fe3edc622118a07b142ac53(), 62851558952152, false)));
+    $self'bankBottles~__tact_dict_set_slice_uint(267, __gen_slice_address_33ee58da0ec9a4a4212a599d46a529be7f9043e8affc125d625ecc4acf35cd70(), 0, 256);
+    return ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags);
+}
+
+((cell, cell, cell, cell, cell, cell), int) $Barter$_fun_isMaster((cell, cell, cell, cell, cell, cell) $self, slice $sender) impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = $self;
+    if (null?($Master$_load_opt(__tact_dict_get_slice_cell($self'master, 267, $sender)))) {
+        return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), false);
+    }
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), true);
+}
+
+((cell, cell, cell, cell, cell, cell), cell) $Barter$_fun_Master((cell, cell, cell, cell, cell, cell) $self) impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = $self;
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), $self'master);
+}
+
+((cell, cell, cell, cell, cell, cell), int) $Barter$_fun_StatusMaster((cell, cell, cell, cell, cell, cell) $self, slice $master, slice $sender) impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = $self;
+    if ((~ null?($SendBottle$_load_opt(__tact_dict_get_slice_cell($self'sendBottles, 267, $master))))) {
+        var ($sendBottle'masterAddress, $sendBottle'name, $sendBottle'senderAddress, $sendBottle'total) = $SendBottle$_not_null($SendBottle$_load_opt(__tact_dict_get_slice_cell($self'sendBottles, 267, $master)));
+        if (( __tact_slice_eq_bits($sender, $sendBottle'senderAddress) )) {
+            return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), true);
+        }
+    }
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), false);
+}
+
+((cell, cell, cell, cell, cell, cell), cell) $Barter$_fun_SendBottles((cell, cell, cell, cell, cell, cell) $self) impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = $self;
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), $self'sendBottles);
+}
+
+((cell, cell, cell, cell, cell, cell), int) $Barter$_fun_TotalBottle((cell, cell, cell, cell, cell, cell) $self, slice $address) impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = $self;
+    if (null?(__tact_dict_get_slice_uint($self'bankBottles, 267, $address, 256))) {
+        return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), 0);
+    }
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), __tact_not_null(__tact_dict_get_slice_uint($self'bankBottles, 267, $address, 256)));
+}
+
+((cell, cell, cell, cell, cell, cell), cell) $Barter$_fun_BagProducts((cell, cell, cell, cell, cell, cell) $self) impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = $self;
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), $self'bagProducts);
+}
+
+((cell, cell, cell, cell, cell, cell), (slice)) $Barter$_fun_currentBag((cell, cell, cell, cell, cell, cell) $self, slice $address) impure inline_ref {
+    var (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)) = $self;
+    if (null?($Bags$_load_opt(__tact_dict_get_slice_cell($self'userBags, 267, $address)))) {
+        return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), $Bags$_constructor_bags(__gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7()));
+    }
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), $Bags$_not_null($Bags$_load_opt(__tact_dict_get_slice_cell($self'userBags, 267, $address))));
+}
+
+;;
+;; Receivers of a Contract Barter
+;;
+
+(((cell, cell, cell, cell, cell, cell)), ()) $Barter$_internal_binary_ArgAddMaster((cell, cell, cell, cell, cell, cell) $self, (slice, slice, slice, int, int) $msg) impure inline {
+    var ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags) = $self;
+    var ($msg'master, $msg'name, $msg'camp, $msg'phone, $msg'status) = $msg;
+    $self'master~__tact_dict_set_slice_cell(267, $msg'master, $Master$_store_cell($Master$_constructor_name_camp_phone_status($msg'name, $msg'camp, $msg'phone, false)));
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), ());
+}
+
+(((cell, cell, cell, cell, cell, cell)), ()) $Barter$_internal_binary_ArgSendBottle((cell, cell, cell, cell, cell, cell) $self, (slice, slice, slice, int) $msg) impure inline {
+    var ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags) = $self;
+    var ($msg'masterAddress, $msg'senderAddress, $msg'name, $msg'total) = $msg;
+    $self'sendBottles~__tact_dict_set_slice_cell(267, $msg'masterAddress, $SendBottle$_store_cell($SendBottle$_constructor_name_masterAddress_senderAddress_total($msg'name, $msg'masterAddress, $msg'senderAddress, $msg'total)));
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), ());
+}
+
+(((cell, cell, cell, cell, cell, cell)), ()) $Barter$_internal_binary_ArgVerifyBottle((cell, cell, cell, cell, cell, cell) $self, (slice, slice, int) $msg) impure inline {
+    var ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags) = $self;
+    var ($msg'address, $msg'masterAddress, $msg'amount) = $msg;
+    int $beforeAmount = 0;
+    if ((~ null?(__tact_dict_get_slice_uint($self'bankBottles, 267, $msg'address, 256)))) {
+        $beforeAmount = __tact_not_null(__tact_dict_get_slice_uint($self'bankBottles, 267, $msg'address, 256));
+    }
+    $self'bankBottles~__tact_dict_set_slice_uint(267, $msg'address, ($beforeAmount + $msg'amount), 256);
+    $self'sendBottles~__tact_dict_set_slice_cell(267, $msg'masterAddress, $SendBottle$_store_opt(null()));
+    $self'masterBottle~__tact_dict_set_slice_int(267, $msg'masterAddress, ($beforeAmount + $msg'amount), 257);
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), ());
+}
+
+(((cell, cell, cell, cell, cell, cell)), ()) $Barter$_internal_binary_ArgBagItem((cell, cell, cell, cell, cell, cell) $self, (int, int, slice, slice, int, int) $msg) impure inline {
+    var ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags) = $self;
+    var ($msg'id, $msg'level, $msg'name, $msg'image_url, $msg'max, $msg'price) = $msg;
+    $self'bagProducts~__tact_dict_set_int_cell(257, $msg'id, $BagItem$_store_cell($BagItem$_constructor_id_level_name_image_url_max_price($msg'id, $msg'level, $msg'name, $msg'image_url, $msg'max, $msg'price)));
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), ());
+}
+
+(((cell, cell, cell, cell, cell, cell)), ()) $Barter$_internal_binary_ArgAddUserBag((cell, cell, cell, cell, cell, cell) $self, (slice, slice) $msg) impure inline {
+    var ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags) = $self;
+    var ($msg'address, $msg'bags) = $msg;
+    $self'userBags~__tact_dict_set_slice_cell(267, $msg'address, $Bags$_store_cell($Bags$_constructor_bags($msg'bags)));
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), ());
+}
+
+(((cell, cell, cell, cell, cell, cell)), ()) $Barter$_internal_binary_Deploy((cell, cell, cell, cell, cell, cell) $self, (int) $deploy) impure inline {
+    var ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags)~$Barter$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'master, $self'masterBottle, $self'sendBottles, $self'bankBottles, $self'bagProducts, $self'userBags), ());
+}
+
+;;
+;; Get methods of a Contract Barter
+;;
+
+_ %isMaster(slice $$sender) method_id(92391) {
+    slice $sender = __tact_verify_address($$sender);
+    var self = $Barter$_contract_load();
+    var res = self~$Barter$_fun_isMaster($sender);
+    return res;
+}
+
+_ %Master() method_id(123061) {
+    var self = $Barter$_contract_load();
+    var res = self~$Barter$_fun_Master();
+    return res;
+}
+
+_ %StatusMaster(slice $$master, slice $$sender) method_id(86744) {
+    slice $master = __tact_verify_address($$master);
+    slice $sender = __tact_verify_address($$sender);
+    var self = $Barter$_contract_load();
+    var res = self~$Barter$_fun_StatusMaster($master, $sender);
+    return res;
+}
+
+_ %SendBottles() method_id(100035) {
+    var self = $Barter$_contract_load();
+    var res = self~$Barter$_fun_SendBottles();
+    return res;
+}
+
+_ %TotalBottle(slice $$address) method_id(74330) {
+    slice $address = __tact_verify_address($$address);
+    var self = $Barter$_contract_load();
+    var res = self~$Barter$_fun_TotalBottle($address);
+    return res;
+}
+
+_ %BagProducts() method_id(72447) {
+    var self = $Barter$_contract_load();
+    var res = self~$Barter$_fun_BagProducts();
+    return res;
+}
+
+_ %currentBag(slice $$address) method_id(125081) {
+    slice $address = __tact_verify_address($$address);
+    var self = $Barter$_contract_load();
+    var res = self~$Barter$_fun_currentBag($address);
+    return $Bags$_to_external(res);
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://Qmcsax5aXciaoHVimkgp4D3qrev3JihJQYh2vmn3G9qXMV";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract Barter
+;;
+
+((cell, cell, cell, cell, cell, cell), int) $Barter$_contract_router_internal((cell, cell, cell, cell, cell, cell) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive ArgAddMaster message
+    if (op == 7850487) {
+        var msg = in_msg~$ArgAddMaster$_load();
+        self~$Barter$_internal_binary_ArgAddMaster(msg);
+        return (self, true);
+    }
+    
+    ;; Receive ArgSendBottle message
+    if (op == 3370528856) {
+        var msg = in_msg~$ArgSendBottle$_load();
+        self~$Barter$_internal_binary_ArgSendBottle(msg);
+        return (self, true);
+    }
+    
+    ;; Receive ArgVerifyBottle message
+    if (op == 2964497605) {
+        var msg = in_msg~$ArgVerifyBottle$_load();
+        self~$Barter$_internal_binary_ArgVerifyBottle(msg);
+        return (self, true);
+    }
+    
+    ;; Receive ArgBagItem message
+    if (op == 1606671232) {
+        var msg = in_msg~$ArgBagItem$_load();
+        self~$Barter$_internal_binary_ArgBagItem(msg);
+        return (self, true);
+    }
+    
+    ;; Receive ArgAddUserBag message
+    if (op == 891968436) {
+        var msg = in_msg~$ArgAddUserBag$_load();
+        self~$Barter$_internal_binary_ArgAddUserBag(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$Barter$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $Barter$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$Barter$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $Barter$_contract_store(self);
+}
