@@ -10,9 +10,8 @@ import "./index.css";
 const manifestUrl =
   "https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json";
 
-  const root = document.getElementById("root") as HTMLElement;
-WebApp.ready();
-ReactDOM.createRoot(root!).render(
+// WebApp.ready();
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <TonConnectUIProvider manifestUrl={manifestUrl}>
     <WalletProvider>
       <RecoilRoot>
