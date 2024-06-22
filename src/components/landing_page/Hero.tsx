@@ -16,9 +16,9 @@ function Hero() {
     <div className="w-full text-text font-outfit md:pt-[1vh] mb-12">
       <div className="xl:max-w-5xl mx-auto grid lg:flex lg:flex-row lg:justify-between gap-4 items-center px-10 xl:px-0 w-fit ">
         <article className="grid gap-2 order-2 lg:order-1  text-center lg:text-left mx-auto ">
-          <h1 className="text-2xl md:text-4xl lg:text-7xl  font-bold text-neutral-900 leading-[110%] tracking-tigh">
-            Tukar <i>botol</i> sekali pakai <br /> menjadi{" "}
-            <span className="bg-primary-200 italic">Token Kripto. </span>
+          <h1 className="text-2xl md:text-4xl lg:text-7xl p-1  font-bold text-neutral-900 leading-[110%] tracking-tigh">
+            Tukar botol sekali pakai <br /> menjadi{" "}
+            <span className="bg-primary-200">Token Kripto. </span>
           </h1>
           <p className="font-outfit font-normal text-neutral-600 text-md md:text-2xl leading-[110%]">
             Mulai langkah awalmu dalam mengurangi emisi karbon dan menjaga Iklim{" "}

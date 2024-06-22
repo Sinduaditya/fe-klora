@@ -19,7 +19,7 @@ function MenuInNavbar() {
         <ul className="grid list-none md:flex gap-3 md:gap-8 font-thin mx-4 md:mx-0 cursor-pointer">
           {menus.map((menu) => (
             <li
-              className="font-normal text-neutral-400 hover:text-neutral-900 hover:font-semibold"
+              className="font-medium text-black hover:text-neutral-900 hover:font-bold"
               key={menu.name}
             >
               <ScrollLink
